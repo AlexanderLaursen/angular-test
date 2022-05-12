@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: angular-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: angular-test
+  template:
+    metadata:
+      labels:
+        app: angular-test
+    spec:
+      containers:
+        - name: angular-test
+          image: a12m/angular-test:latest
+          ports:
+            - containerPort: 80
