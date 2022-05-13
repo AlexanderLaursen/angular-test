@@ -1,0 +1,56 @@
+name: what
+
+on:
+  push:
+    tags:
+      - "*.*.*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Metadata version
+        id: meta_version
+        uses: docker/metadata-action@v3
+        with:
+          images: |
+            a12m/angular-test
+          tags: |
+            type=semver,pattern={{version}}
+            type=sha
+
+      - name: Metadata id
+        id: meta_id
+        uses: docker/metadata-action@v3
+        with:
+          images: |
+            a12m/angular-test
+
+          tags: |
+            type=semver,pattern={{version}}
+
+          flavor: |
+            latest=false
+
+      - name: Metadata label
+        id: meta_label
+        uses: docker/metadata-action@v3
+        with:
+          images: |
+            a12m/angular-test
+
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
+
+      - name: test1
+        run: echo ${{ steps.meta_id.outputs.tags }}
