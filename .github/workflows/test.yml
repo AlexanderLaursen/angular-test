@@ -2,6 +2,8 @@ name: test
 
 on:
   push:
+    branches:
+      - master
     tags:
       - "*.*.*"
 
@@ -9,9 +11,8 @@ on:
 
 jobs:
   build:
-    runs-on:
-      self-hosted
-      # if: github.event.base_ref=='refs/heads/master'
+    runs-on: self-hosted
+
     # if: github.ref == 'refs/heads/master'
 
     steps:
@@ -57,13 +58,19 @@ jobs:
       #       type=semver,pattern={{major}}
       #       type=sha
 
-      - name: Image meta ID
+      - name: one
         run: echo ${{ steps.meta_id.outputs.tags }}
 
-      - name: show repo
+      - name: two
         run: echo $${{ github.ref }}
 
-      - name: show master
+      - name: three
+        run: echo ${{ github.ref_type }}
+
+      - name: four
+        run: echo $${{ github.event.base_ref }}
+
+      - name: five
         run: echo ${{ github.event.base_ref=='refs/heads/master' }}
 
       # - name: Login to DockerHub
