@@ -40,8 +40,6 @@ jobs:
           # Docker tags based on the following events/attributes
           tags: |
             type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
             type=sha
 
       - name: Metadata id
@@ -54,6 +52,8 @@ jobs:
           # Docker tags based on the following events/attributes
           tags: |
             type=semver,pattern={{version}}
+          flavor: |
+            lastest=false
 
       - name: Metadata label
         id: meta_label # you'll use this in the next step
