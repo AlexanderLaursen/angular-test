@@ -65,5 +65,3 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
             type=sha
-      - uses: docker/metadata-action@v3
-        run: echo {{version}}
