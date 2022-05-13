@@ -64,4 +64,4 @@ jobs:
             type=semver,pattern={{major}}
             type=sha
       - name: test1
-          run echo {{version}}
+        run: echo {{version}}
