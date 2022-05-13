@@ -26,12 +26,12 @@ jobs:
         run: echo Hello, world
         
       - name: Docker meta
-        id: <meta_id> # you'll use this in the next step
+        id: test # you'll use this in the next step
         uses: docker/metadata-action@v3
         with:
           # list of Docker images to use as base name for tags
           images: |
-            <specify the image name>
+            a12m/angular-test
           # Docker tags based on the following events/attributes
           tags: |
             type=schedule
@@ -43,5 +43,5 @@ jobs:
             type=sha
             
       - name: test
-        run: echo <meta_id>
+        run: echo test
        
