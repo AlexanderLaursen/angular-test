@@ -56,17 +56,18 @@ jobs:
       - name: Image meta ID
         run: echo ${{ steps.meta_id.outputs.tags }}
 
-      # - name: Set up QEMU
-      #   uses: docker/setup-qemu-action@v2
-
-      # - name: Set up Docker Buildx
-      #   id: buildx
-      #   uses: docker/setup-buildx-action@v2
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
           username: a12m
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2
 
       - name: Deploy
         run: echo kubectl set image deployment/angular-test angular-test=${{ steps.meta_id.outputs.tags }}
