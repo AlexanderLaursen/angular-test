@@ -19,7 +19,7 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: |
-            a12m/angular-test
+            ${{ secrets.DOCKERHUB_USERNAME }}/angular-test
           tags: |
             type=semver,pattern={{version}}
             type=sha
@@ -29,7 +29,7 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: |
-            a12m/angular-test
+            ${{ secrets.DOCKERHUB_USERNAME }}/angular-test
 
           tags: |
             type=semver,pattern={{version}}
@@ -42,7 +42,7 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: |
-            a12m/angular-test
+            ${{ secrets.DOCKERHUB_USERNAME }}/angular-test
 
           tags: |
             type=schedule
@@ -65,5 +65,5 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
-          username: a12m
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
