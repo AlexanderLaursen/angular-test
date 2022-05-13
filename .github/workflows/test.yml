@@ -4,9 +4,9 @@ name: test
 
 # Controls when the workflow will run
 on:
-  push:
-    tags:
-      - "*.*.*"
+  # push:
+  #   tags:
+  #     - "*.*.*"
   workflow_dispatch:
 
 jobs:

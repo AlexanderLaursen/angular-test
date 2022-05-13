@@ -1,9 +1,9 @@
 name: main
 
 on:
-  push:
-    tags:
-      - "*.*.*"
+  # push:
+  #   tags:
+  #     - "*.*.*"
   workflow_dispatch:
     #   branches:
     #     - "master"
