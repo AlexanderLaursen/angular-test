@@ -65,7 +65,7 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
-      - name: Set up Docker Buildx
+      - name: Set up Buildx
         id: buildx
         uses: docker/setup-buildx-action@v2
 
@@ -73,10 +73,10 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/arm64
           push: true
           tags: ${{ steps.meta_version.outputs.tags }}
           labels: ${{ steps.meta_label.outputs.labels }}
 
       - name: Deploy
-        run: echo kubectl set image deployment/angular-test angular-test=${{ steps.meta_id.outputs.tags }}
+        run: kubectl set image deployment/angular-test angular-test=${{ steps.meta_id.outputs.tags }}
