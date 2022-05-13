@@ -15,54 +15,38 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-      - name: Set up Docker Buildx
-        id: buildx
-        uses: docker/setup-buildx-action@v2
-      - name: Login to DockerHub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Available platforms
-        run: echo ${{ steps.buildx.outputs.platforms }}
+        uses: actions/checkout@v3
 
       - name: Metadata version
-        id: meta_version # you'll use this in the next step
+        id: meta_version
         uses: docker/metadata-action@v3
         with:
-          # list of Docker images to use as base name for tags
           images: |
             a12m/angular-test
-          # Docker tags based on the following events/attributes
           tags: |
             type=semver,pattern={{version}}
             type=sha
 
       - name: Metadata id
-        id: meta_id # you'll use this in the next step
+        id: meta_id
         uses: docker/metadata-action@v3
         with:
-          # list of Docker images to use as base name for tags
           images: |
             a12m/angular-test
-          # Docker tags based on the following events/attributes
+
           tags: |
             type=semver,pattern={{version}}
+
           flavor: |
             latest=false
 
       - name: Metadata label
-        id: meta_label # you'll use this in the next step
+        id: meta_label
         uses: docker/metadata-action@v3
         with:
-          # list of Docker images to use as base name for tags
           images: |
             a12m/angular-test
-          # Docker tags based on the following events/attributes
+
           tags: |
             type=schedule
             type=ref,event=branch
@@ -71,6 +55,60 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
             type=sha
+
+      - name: test1
+        run: echo ${{ steps.meta_id.outputs.tags }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # - name: Metadata version
+      #   id: meta_version
+      #   uses: docker/metadata-action@v3
+      #   with:
+      #     images: |
+      #       a12m/angular-test
+      #     tags: |
+      #       type=semver,pattern={{version}}
+      #       type=sha
+
+      # - name: Metadata id
+      #   id: meta_id
+      #   uses: docker/metadata-action@v3
+      #   with:
+      #     images: |
+      #       a12m/angular-test
+
+      #     tags: |
+      #       type=semver,pattern={{version}}
+
+      #     flavor: |
+      #       latest=false
+
+      # - name: Metadata label
+      #   id: meta_label
+      #   uses: docker/metadata-action@v3
+      #   with:
+      #     images: |
+      #       a12m/angular-test
+      #     tags: |
+      #       type=schedule
+      #       type=ref,event=branch
+      #       type=ref,event=pr
+      #       type=semver,pattern={{version}}
+      #       type=semver,pattern={{major}}.{{minor}}
+      #       type=semver,pattern={{major}}
+      #       type=sha
     #  -
     #name: Build and push
     #uses: docker/build-push-action@v3

@@ -20,43 +20,36 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world
-
       - name: Metadata version
-        id: meta_version # you'll use this in the next step
+        id: meta_version
         uses: docker/metadata-action@v3
         with:
-          # list of Docker images to use as base name for tags
           images: |
             a12m/angular-test
-          # Docker tags based on the following events/attributes
           tags: |
             type=semver,pattern={{version}}
             type=sha
 
       - name: Metadata id
-        id: meta_id # you'll use this in the next step
+        id: meta_id
         uses: docker/metadata-action@v3
         with:
-          # list of Docker images to use as base name for tags
           images: |
             a12m/angular-test
-          # Docker tags based on the following events/attributes
+
           tags: |
             type=semver,pattern={{version}}
+
           flavor: |
             latest=false
 
       - name: Metadata label
-        id: meta_label # you'll use this in the next step
+        id: meta_label
         uses: docker/metadata-action@v3
         with:
-          # list of Docker images to use as base name for tags
           images: |
             a12m/angular-test
-          # Docker tags based on the following events/attributes
+
           tags: |
             type=schedule
             type=ref,event=branch
@@ -65,5 +58,6 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
             type=sha
+
       - name: test1
         run: echo ${{ steps.meta_id.outputs.tags }}
