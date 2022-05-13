@@ -67,3 +67,6 @@ jobs:
         with:
           username: a12m
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Deploy
+        run: echo kubectl set image deployment/angular-test angular-test=${{ steps.meta_id.outputs.tags }}
