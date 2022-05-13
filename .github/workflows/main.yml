@@ -4,11 +4,15 @@ on:
   push:
     tags:
       - "*.*.*"
+    branches:
+      - "master"
+
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: self-hosted
+    #   if: github.ref == 'refs/heads/master'
 
     steps:
       - name: Checkout
