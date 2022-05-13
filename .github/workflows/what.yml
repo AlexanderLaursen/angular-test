@@ -1,10 +1,5 @@
 name: what
 
-env:
-  IMAGE_ID: string
-  IMAGE_LABEL: string
-  IMAGE_VERSION: string
-
 on:
   push:
     tags:
@@ -24,7 +19,7 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: |
-            a12m/angular-test
+            ${{ secrets.DOCKERHUB_USERNAME }}/angular-test
           tags: |
             type=semver,pattern={{version}}
             type=sha
@@ -34,7 +29,7 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: |
-            a12m/angular-test
+            ${{ secrets.DOCKERHUB_USERNAME }}/angular-test
 
           tags: |
             type=semver,pattern={{version}}
@@ -47,7 +42,7 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: |
-            a12m/angular-test
+            ${{ secrets.DOCKERHUB_USERNAME }}/angular-test
 
           tags: |
             type=schedule
@@ -58,13 +53,8 @@ jobs:
             type=semver,pattern={{major}}
             type=sha
 
-      - name: Image metas
+      - name: Image meta ID
         run: echo ${{ steps.meta_id.outputs.tags }}
-
-      - name: Envs
-        env:
-          IMAGE_VERSION: ${{ steps.meta_id.outputs.tags }}
-        run: echo ${{ env.IMAGE_VERSION }}
 
       # - name: Set up QEMU
       #   uses: docker/setup-qemu-action@v2
