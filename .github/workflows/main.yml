@@ -53,7 +53,7 @@ jobs:
           tags: |
             type=semver,pattern={{version}}
           flavor: |
-            lastest=false
+            latest=false
 
       - name: Metadata label
         id: meta_label # you'll use this in the next step
