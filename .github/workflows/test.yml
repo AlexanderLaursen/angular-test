@@ -5,13 +5,8 @@ name: test
 # Controls when the workflow will run
 on:
   push:
-    branches:
-      - "master"
     tags:
       - "*.*.*"
-  pull_request:
-    branches:
-      - "master"
   workflow_dispatch:
 
 jobs:
@@ -68,3 +63,5 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
             type=sha
+      - name: test1
+          run echo {{version}}
