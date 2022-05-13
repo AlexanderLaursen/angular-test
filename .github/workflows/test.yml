@@ -65,3 +65,5 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
             type=sha
+      - name: test1
+        run: echo ${{ steps.meta_id.outputs.tags }}
